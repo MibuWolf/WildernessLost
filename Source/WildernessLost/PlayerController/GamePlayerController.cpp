@@ -204,8 +204,8 @@ void AGamePlayerController::OnCameraWheelEvent(float Value)
 		float length = player->springArm->TargetArmLength;
 		length -= Value * 250;
 
-		if (length <= 200.0f)
-			length = 200.0f;
+		if (length <= 100.0f)
+			length = 100.0f;
 
 		if (length >= 1500.0f)
 			length = 1500.0f;

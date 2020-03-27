@@ -73,6 +73,12 @@ void AGamePlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 		FString("CancelTarget"), FString("EAbilityInputID"), static_cast<int32>(EAbilityInputID::Confirm), static_cast<int32>(EAbilityInputID::Cancel)));
 }
 
+void AGamePlayer::StopJumping()
+{
+	if (JumpCurrentCount >= JumpMaxCount)
+		Super::StopJumping();
+}
+
 void AGamePlayer::OnBeginOverlap(UPrimitiveComponent * hitComponet, AActor * otherActor, UPrimitiveComponent * otherComponet, int32 otherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
 {
 	if (otherActor == nullptr)
