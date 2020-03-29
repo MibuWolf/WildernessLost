@@ -20,24 +20,27 @@ public:
 
 	UGameAbility();
 
-	UFUNCTION(BlueprintCallable, Category = Ability)
-	void		SetAbilityID(int32 abilityID);
+	bool				CanAutoGive();
 
-	UFUNCTION(BlueprintCallable, Category = Ability)
-	int32		GetAbilityID();
-
-	UFUNCTION(BlueprintCallable, Category = Ability)
-	bool		CanAutoGive();
-
-	UFUNCTION(BlueprintCallable, Category = Ability)
-	void		ApplyGEGroupByTag(FGameplayTag GETag);
+	EAbilityInputID		GetAbilityInputID();
 
 public:
 
-	UPROPERTY(EditAnywhere, Category = Ability)
-	EAbilityInputID		InputID;		// 绑定按键
+	// 激活能力
+	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* OwnerInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
+
+	// 重载结束能力
+	virtual void EndAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, bool bReplicateEndAbility, bool bWasCancelled);
+
 
 protected:
+
+	void OnGameplayEvent(FGameplayTag EventTag, const FGameplayEventData* Payload);
+
+protected:
+
+	UPROPERTY(EditAnywhere, Category = Ability)
+	EAbilityInputID		InputID;		// 绑定按键
 
 	UPROPERTY(EditAnywhere, Category = Ability)
 	int32				AbilityID;		// 能力ID
@@ -48,4 +51,5 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = Ability)
 	TMap<FGameplayTag, FGameEffectGroup> GEGroupMap;	// 所有效果
 
+	FDelegateHandle		EventHandle;	// GameplayEvent回调Handle
 };

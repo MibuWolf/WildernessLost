@@ -15,7 +15,7 @@ void UGameAbilitySystemComponent::AutoGiveAbilites()
 		UGameAbility* pAbility = Cast<UGameAbility>(Pair.Value.GetDefaultObject());
 		if (pAbility->CanAutoGive())
 		{
-			GiveAbility(FGameplayAbilitySpec(Pair.Value, 1, static_cast<int32>(pAbility->InputID), GetOwner()));
+			GiveAbility(FGameplayAbilitySpec(Pair.Value, 1, static_cast<int32>(pAbility->GetAbilityInputID()), GetOwner()));
 		}
 	}
 }
@@ -36,7 +36,7 @@ void UGameAbilitySystemComponent::AbilityLocalInputPressed(int32 InputID)
 
 	FString ComboTag = FString::Printf(TEXT("Skill.Combo.%d"), InputID);
 	FGameplayTagContainer tagContainer;
-	tagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName(*ComboTag)));
+	//tagContainer.AddTag(FGameplayTag::RequestGameplayTag(FName(*ComboTag)));
 	bool bCombo = false;
 	if (HasAnyMatchingGameplayTags(tagContainer))
 	{
