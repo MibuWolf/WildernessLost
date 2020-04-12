@@ -39,3 +39,31 @@ public:
 	FGameplayAbilityTargetDataHandle GetTargets_Implementation(AActor* Owner);
 
 };
+
+
+
+/** 球形区域*/
+UCLASS()
+class WILDERNESSLOST_API UGETarget_Sphere : public UGETarget
+{
+	GENERATED_BODY()
+
+public:
+	// Constructor and overrides
+	UGETarget_Sphere() {}
+
+	/** Uses the passed in event data */
+	FGameplayAbilityTargetDataHandle GetTargets_Implementation(AActor* Owner);
+
+protected:
+
+	UPROPERTY(EditAnywhere, Category = Ability)
+	FVector			offset;		// 相对偏移值
+
+	UPROPERTY(EditAnywhere, Category = Ability)
+	float			radius;		// 半径
+
+	UPROPERTY(EditAnywhere, Category = Ability)
+	TArray<TEnumAsByte<EObjectTypeQuery> > objectTypes;		// 查找对象类型
+
+};
